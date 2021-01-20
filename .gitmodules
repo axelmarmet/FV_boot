@@ -1,0 +1,6 @@
+[submodule "X86-64-semantics"]
+	path = X86-64-semantics
+	url = git@github.com:axelmarmet/X86-64-semantics.git
+[submodule "vigor_workspace/vigor"]
+	path = vigor_workspace/vigor
+	url = git@github.com:axelmarmet/vigor.git
