@@ -1,0 +1,91 @@
+  0x101000:	0xbc00302e00                              	movl   $0x2e3000,%esp
+  0x101005:	0x9c                                      	pushfl 
+  0x101006:	0x58                                      	popl   %eax
+  0x101007:	0x89c3                                    	movl   %eax,%ebx
+  0x101009:	0x3500002000                              	xorl   $0x200000,%eax
+  0x10100e:	0x50                                      	pushl  %eax
+  0x10100f:	0x9d                                      	popfl  
+  0x101010:	0x9c                                      	pushfl 
+  0x101011:	0x58                                      	popl   %eax
+  0x101012:	0x39d8                                    	cmpl   %ebx,%eax
+  0x101014:	0x0f84b4000000                            	je     0x1010ce <start.unsupported_cpu>
+  0x10101a:	0x31c0                                    	xorl   %eax,%eax
+  0x10101c:	0x0fa2                                    	cpuid  
+  0x10101e:	0x83f802                                  	cmpl   $0x2,%eax
+  0x101021:	0x0f86a7000000                            	jbe    0x1010ce <start.unsupported_cpu>
+  0x101027:	0xb800000080                              	movl   $0x80000000,%eax
+  0x10102c:	0x0fa2                                    	cpuid  
+  0x10102e:	0x3d07000080                              	cmpl   $0x80000007,%eax
+  0x101033:	0x0f8295000000                            	jb     0x1010ce <start.unsupported_cpu>
+  0x101039:	0xb801000080                              	movl   $0x80000001,%eax
+  0x10103e:	0x0fa2                                    	cpuid  
+  0x101040:	0x0fbae21d                                	btl    $0x1d,%edx
+  0x101044:	0x0f8384000000                            	jae    0x1010ce <start.unsupported_cpu>
+  0x10104a:	0x0fbae21a                                	btl    $0x1a,%edx
+  0x10104e:	0x737e                                    	jae    0x1010ce <start.unsupported_cpu>
+  0x101050:	0xb801000000                              	movl   $0x1,%eax
+  0x101055:	0x0fa2                                    	cpuid  
+  0x101057:	0xb803229876                              	movl   $0x76982203,%eax
+  0x10105c:	0x21c1                                    	andl   %eax,%ecx
+  0x10105e:	0x39c1                                    	cmpl   %eax,%ecx
+  0x101060:	0x756c                                    	jne    0x1010ce <start.unsupported_cpu>
+  0x101062:	0xb871018007                              	movl   $0x7800171,%eax
+  0x101067:	0x21c2                                    	andl   %eax,%edx
+  0x101069:	0x39c2                                    	cmpl   %eax,%edx
+  0x10106b:	0x7561                                    	jne    0x1010ce <start.unsupported_cpu>
+  0x10106d:	0xb807000000                              	movl   $0x7,%eax
+  0x101072:	0x31c9                                    	xorl   %ecx,%ecx
+  0x101074:	0x0fa2                                    	cpuid  
+  0x101076:	0x0fbae300                                	btl    $0x0,%ebx
+  0x10107a:	0x7352                                    	jae    0x1010ce <start.unsupported_cpu>
+  0x10107c:	0xb807000080                              	movl   $0x80000007,%eax
+  0x101081:	0x0fa2                                    	cpuid  
+  0x101083:	0x0fbae208                                	btl    $0x8,%edx
+  0x101087:	0x7345                                    	jae    0x1010ce <start.unsupported_cpu>
+  0x101089:	0x0f20e0                                  	movl   %cr4,%eax
+  0x10108c:	0x83c820                                  	orl    $0x20,%eax
+  0x10108f:	0x0f22e0                                  	movl   %eax,%cr4
+  0x101092:	0xb800401a00                              	movl   $0x1a4000,%eax
+  0x101097:	0x83c803                                  	orl    $0x3,%eax
+  0x10109a:	0xa300301a00                              	movl   %eax,0x1a3000
+  0x10109f:	0xb800301a00                              	movl   $0x1a3000,%eax
+  0x1010a4:	0x0f22d8                                  	movl   %eax,%cr3
+  0x1010a7:	0xb9800000c0                              	movl   $0xc0000080,%ecx
+  0x1010ac:	0x0f32                                    	rdmsr  
+  0x1010ae:	0x0d00010000                              	orl    $0x100,%eax
+  0x1010b3:	0x0f30                                    	wrmsr  
+  0x1010b5:	0x0f20c0                                  	movl   %cr0,%eax
+  0x1010b8:	0x0d00000080                              	orl    $0x80000000,%eax
+  0x1010bd:	0x0f22c0                                  	movl   %eax,%cr0
+  0x1010c0:	0x0f011510e01a00                           	lgdtl  0x1ae010
+  0x1010c7:	0xea002010000800                           	ljmpl  $0x8,$0x102000
+  0x1010ce:	0xf4                                      	hlt    
+  0x1010cf:	0xebfd                                    	jmp    0x1010ce <start.unsupported_cpu>
+  0x102000:	0x6631c0                                  	xorw   %ax,%ax
+  0x102003:	0x8ed0                                    	movl   %eax,%ss
+  0x102005:	0x8ed8                                    	movl   %eax,%ds
+  0x102007:	0x8ec0                                    	movl   %eax,%es
+  0x102009:	0x8ee0                                    	movl   %eax,%fs
+  0x10200b:	0x8ee8                                    	movl   %eax,%gs
+  0x10200d:	0x0f20e0                                  	movq   %cr4,%rax
+  0x102010:	0x480d00060000                            	orq    $0x600,%rax
+  0x102016:	0x0f22e0                                  	movq   %rax,%cr4
+  0x102019:	0x0f20c0                                  	movq   %cr0,%rax
+  0x10201c:	0x4883e0fb                                	andq   $0xfffffffffffffffb,%rax
+  0x102020:	0x4883c802                                	orq    $0x2,%rax
+  0x102024:	0x0f22c0                                  	movq   %rax,%cr0
+  0x102027:	0x0f20e0                                  	movq   %cr4,%rax
+  0x10202a:	0x480d00000400                            	orq    $0x40000,%rax
+  0x102030:	0x0f22e0                                  	movq   %rax,%cr4
+  0x102033:	0x4831c9                                  	xorq   %rcx,%rcx
+  0x102036:	0x0f01d0                                  	xgetbv 
+  0x102039:	0x83c807                                  	orl    $0x7,%eax
+  0x10203c:	0x0f01d1                                  	xsetbv 
+  0x10203f:	0xbc00302e00                              	movl   $0x2e3000,%esp
+
+ 0x1ae000: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x98 0x20 0x00 
+ 0x1ae010: 0x0f 0x00 0x00 0xe0 0x1a 0x00 0x00 0x00 0x00 0x00    
+ 0x1a3000: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+ 0x1a4000: 0x83 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x83 0x00 0x00 0x40 0x00 0x00 0x00 0x00 
+ 0x1a4010: 0x83 0x00 0x00 0x80 0x00 0x00 0x00 0x00 0x83 0x00 0x00 0xc0 0x00 0x00 0x00 0x00 
+ 
