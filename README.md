@@ -5,7 +5,8 @@ Run `extract_dis.sh` on the `nfos-x86_64-multiboot2.bin` obtained.
 Modify the output as indicated on next section.  
 Run `run.sh` with for first argument the wanted configuration located in the `configurations` directory and as a second argument the file you wish to run. For example `./run.sh configurations/correct-configuration.k nfos.dis`.  
 The resulting configuration will then be printed after ~10 minutes on a Thinkpad T480, since it is quite big it is recommended to pipe it to a file.  
-If you do not wish to extract the code there already exists a file `nfos.dis` that is the result of the extraction and lightly modifying the syntax.
+If you do not wish to extract the code there already exists a file `nfos.dis` that is the result of the extraction and lightly modifying the syntax.  
+In the output configuration if the k cell holds "exit_0" it means that the program has executed sucessfully, if it contains "halted" it means the program jumped to the halt instruction.
 ## Modify the output of extract_dis.sh
 ### Deletion
 Lines like
